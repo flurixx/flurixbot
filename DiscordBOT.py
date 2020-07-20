@@ -69,7 +69,7 @@ async def leave(ctx):
 	if voice and voice.is_connected():
 		await voice.disconnect()
 	else:
-		voice = await connect.channel
+		voice = await channel.connect()
 
 @bot.command()
 async def hello(ctx):
