@@ -13,10 +13,13 @@ settings = {
 }
 
 bot = commands.Bot(command_prefix = settings['prefix'])
+bot.remove_command('help')
+version = 'stable v1'
 
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=" !info"))
+    print('DiscordBOT {version} by flurix запущен')
 
 @bot.command()
 async def hello(ctx):
@@ -26,7 +29,7 @@ async def hello(ctx):
 @bot.command(aliases = ['помощь','помоги','команды'])
 async def info(ctx):
 	embed1 = discord.Embed(title = 'Обо мне', description = '''Привет!
-Я - discordBOT by flurix v0.5.
+Я - бот FlurixX версии = {version}.
 На данный момент я нахожусь в активной разработке''', color = 0xFF8C00)
 	embed2 = discord.Embed(title = 'Команды', description = '''Список доступных комманд:
 !info - информация, которую вы сейчас видите
@@ -36,8 +39,7 @@ async def info(ctx):
 !ban и !unban - бан и соответственно разбан пользователя на сервере(Доступно только роли Админ)
 !mute - блокировка чата пользователю(Доступно только роли Админ)''', color = 0xFF8C00)
 	embed3 = discord.Embed(title = 'План разработки', description = '''В скором времени будут доступны и другие комманды.
-Например, скоро разработчик планирует добавить функцию воспроизведения музыки,
-Систему валюты на сервере...''', color = 0xFF8C00)
+Например, скоро разработчик планирует добавить систему валюты и другие плюшки...''', color = 0xFF8C00)
 	embeds = [embed1, embed2, embed3]
 	message = await ctx.send(embed = embed1)
 	page = pag(bot, message, only=ctx.author, use_more=False, embeds=embeds)
@@ -158,7 +160,7 @@ async def on_message(message):
 		await message.delete()
 		await channel.send(embed = discord.Embed(description = f'{message.author}, прошу не материться на сервере.',color=0xFF0000)) 
 
-cool_words = ['бот крутой', 'бот лучший','бот топ','бот классный','бот прикольный']		
+cool_words = ['бот крутой', 'бот лучший','бот топ','бот классный','бот прикольный', 'топ бот', 'крутой бот', 'классный бот','лучший бот','прикольный бот']		
 @bot.event
 async def on_message(message):
 	channel = bot.get_channel( 734072439620763733 )
@@ -166,9 +168,6 @@ async def on_message(message):
 	msg = message.content.lower()
 	if msg in cool_words:
 		await channel.send(embed = discord.Embed(description = f'{message.author}, cпасибо :) Ты тоже крут!',color=0xFF1493)) 
-
-
-print('DiscordBOT v0.4 by flurix запущен')
 
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
