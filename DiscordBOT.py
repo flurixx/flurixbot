@@ -144,5 +144,5 @@ async def on_message(message):
 
 print('DiscordBOT v0.4 by flurix запущен')
 
-token = os.environ.get('BOT TOKEN')
+token = os.environ.get('BOT_TOKEN')
 
