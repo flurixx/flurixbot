@@ -16,3 +16,4 @@ vk==2.0.2
 vk-api==11.8.0
 websockets==8.1
 yarl==1.4.2
+Cybernator==0.6.0
