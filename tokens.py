@@ -1,0 +1,4 @@
+#TOKENS
+VKtoken = '8a0f6c61c595cfe0ffd7e9affe282f05124dad4bceb5ed76e290376f8fb99a2d40d74cfabea28ca6b5967'
+DStoken = 'NzM0MDcxMzQ2MzEyNzczNzIz.XxMYtw.BVa3DMxWfm4BNUYex7SmXiR_Xw8'
+DSid = 734071346312773723
