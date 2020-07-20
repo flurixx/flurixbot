@@ -38,7 +38,7 @@ async def info(ctx):
 Систему валюты на сервере...''')
 	embeds = [embed1, embed2, embed3]
 	message = await ctx.send(embed = embed1)
-	page = pag(bot, message, only=ctx.author, use_more=False, embeds=embeds, footer=false)
+	page = pag(bot, message, only=ctx.author, use_more=False, embeds=embeds, footer=False)
 	await page.start()
 
 #Очистка чата
