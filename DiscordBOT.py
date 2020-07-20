@@ -81,6 +81,16 @@ async def ban( ctx, member: discord.Member, *, reason = 'Вы были заба�
 	await ctx.channel.purge( limit = 1)
 	await member.ban(reason = reason)
 	await ctx.send(f'Пользователь {member.name} был забанен на сервере.')
+	
+@ban.error
+async def ban_error(ctx,error):
+	author = ctx.message.author
+	if isinstance (error, commands.MissingRequiredArgument):
+		channel = bot.get_channel( 734072439620763733 )
+		await channel.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
+	if isinstance(error, commands.MissingRole):
+		channel = bot.get_channel( 734072439620763733 )
+		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 #Разбан пользователя
 @bot.command( pass_context = True )
