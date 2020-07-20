@@ -3,6 +3,7 @@ from discord.ext import commands
 import json
 import requests
 import os
+from Cybernator import Paginator as pag
 
 settings = {
     'bot': 'flurix[BOT]',
@@ -19,23 +20,26 @@ async def on_ready():
 async def hello(ctx):
     author = ctx.message.author
     await ctx.send(f'Привет, {author.mention}!')
-
-#Информация
-@bot.command()
-async def info(ctx):
-    channel = bot.get_channel( 734072439620763733 )
-    author = ctx.message.author
-    await channel.send ( embed = discord.Embed(description = f"""Привет, {author.mention}! 
-Я - discordBOT by flurix v0.4.
-На данный момент я нахожусь в разработке, поэтому доступен только некоторый перечень команд:
+	
+@bot.command(aliases = ['help','помощь','помоги','команды'])
+async def help(ctx):
+	embed1 = discord.Embed(title = 'Обо мне', description = '''Привет!
+Я - discordBOT by flurix v0.5.
+На данный момент я нахожусь в активной разработке'''
+	embed2 = discord.Embed(title = 'Команды', description = '''Список доступных комманд:
 !info - информация, которую вы сейчас видите
 !hello - поздороваться с ботом
-!clear - очистка чата(Доступно только роли Кодер)
+!clear - очистка чата(Доступно только роли Админ)
 !kick - кик пользователя с сервера(Доступно только роли Админ)
 !ban и !unban - бан и соответственно разбан пользователя на сервере(Доступно только роли Админ)
-!mute - блокировка чата пользователю(Доступно только роли Админ)
-В дальнейшем бот будет улучшаться, и будут новые команды"""
-, color = 0xFFD700))
+!mute - блокировка чата пользователю(Доступно только роли Админ)'''
+	embed3 = discord.Embed(title = 'План разработки', description = '''В скором времени будут доступны и другие комманды.
+Например, скоро разработчик планирует добавить функцию воспроизведения музыки,
+Систему валюты на сервере...'''
+	embeds = [embed1, embed2, embed3]
+	message = await ctx.send(embed = embed1)
+	page = pag(bot, message, only=ctx.author, use_more=False, embed=embeds)
+	await page.start()
 
 #Очистка чата
 @bot.command( pass_context = True )
