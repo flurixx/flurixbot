@@ -25,20 +25,20 @@ async def hello(ctx):
 async def info(ctx):
 	embed1 = discord.Embed(title = 'Обо мне', description = '''Привет!
 Я - discordBOT by flurix v0.5.
-На данный момент я нахожусь в активной разработке''')
+На данный момент я нахожусь в активной разработке''', color = 0xFF8C00)
 	embed2 = discord.Embed(title = 'Команды', description = '''Список доступных комманд:
 !info - информация, которую вы сейчас видите
 !hello - поздороваться с ботом
 !clear - очистка чата(Доступно только роли Админ)
 !kick - кик пользователя с сервера(Доступно только роли Админ)
 !ban и !unban - бан и соответственно разбан пользователя на сервере(Доступно только роли Админ)
-!mute - блокировка чата пользователю(Доступно только роли Админ)''')
+!mute - блокировка чата пользователю(Доступно только роли Админ)''', color = 0xFF8C00)
 	embed3 = discord.Embed(title = 'План разработки', description = '''В скором времени будут доступны и другие комманды.
 Например, скоро разработчик планирует добавить функцию воспроизведения музыки,
-Систему валюты на сервере...''')
+Систему валюты на сервере...''', color = 0xFF8C00)
 	embeds = [embed1, embed2, embed3]
 	message = await ctx.send(embed = embed1)
-	page = pag(bot, message, only=ctx.author, use_more=False, embeds=embeds, footer=False)
+	page = pag(bot, message, only=ctx.author, use_more=False, embeds=embeds)
 	await page.start()
 
 #Очистка чата
