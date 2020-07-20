@@ -159,7 +159,7 @@ async def on_message(message):
 	await bot.process_commands( message )
 	msg = message.content.lower()
 	if msg in cool_words:
-		await channel.send(embed = discord.Embed(description = f'{message.author}, cпасибо :) Ты тоже крут!',color=0xFF0000)) 
+		await channel.send(embed = discord.Embed(description = f'{message.author}, cпасибо :) Ты тоже крут!',color=0xFF1493)) 
 
 
 print('DiscordBOT v0.4 by flurix запущен')
