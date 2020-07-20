@@ -21,7 +21,7 @@ async def on_ready():
 @bot.command()
 async def play(ctx, url: str):
 	global voice
-	voice = get(client.voice_clients, guild = ctx.guild)
+	voice = get(bot.voice_clients, guild = ctx.guild)
 	channel = ctx.message.author.voice.channel
 	if voice and voice.is_connected():
 		await voice.move_to(channel)
@@ -36,7 +36,7 @@ async def play(ctx, url: str):
 		print('[log] Не удалось удалить файл')
 	await ctx.send('Идёт загрузка аудиофайла, ожидайте...')
 
-	voice = get(client.voice_clients, guild = ctx.guild)
+	voice = get(bot.voice_clients, guild = ctx.guild)
 	ydl_opts = {
 		'format' : 'bestaudio/best',
 		'postprocessors' : [{
