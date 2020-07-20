@@ -40,7 +40,7 @@ async def play(ctx, url: str):
 	ydl_opts = {
 		'format' : 'bestaudio/best',
 		'postprocessors' : [{
-			'key' : 'FFmpegExtractAudio'
+			'key' : 'FFmpegExtractAudio',
 			'preferredcodec' : 'mp3',
 			'preferredquality' : '192'
 		}],
