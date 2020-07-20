@@ -4,6 +4,8 @@ import json
 import requests
 import os
 from Cybernator import Paginator as pag
+from discord.utils import get
+import youtube_dl
 
 settings = {
     'bot': 'flurix[BOT]',
