@@ -59,7 +59,7 @@ async def clear_error(ctx,error):
 @bot.command( pass_context = True )
 @commands.has_role('Админ')
 async def kick( ctx, member: discord.Member, *, reason = 'Вы были кикнуты с сервера' ):
-	channel = bot.get_channel( 734072439620763733 
+	channel = bot.get_channel( 734072439620763733 )
 	await ctx.channel.purge( limit = 1)
 	await member.kick(reason = reason)
 	await channel.send(embed = discord.Embed(description = f'{member.name}, был исключён с сервера.',color=0xFF0000))
