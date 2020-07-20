@@ -22,7 +22,7 @@ async def hello(ctx):
     await ctx.send(f'Привет, {author.mention}!')
 	
 @bot.command(aliases = ['помощь','помоги','команды'])
-async def help(ctx):
+async def info(ctx):
 	embed1 = discord.Embed(title = 'Обо мне', description = '''Привет!
 Я - discordBOT by flurix v0.5.
 На данный момент я нахожусь в активной разработке''')
