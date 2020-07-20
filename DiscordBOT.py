@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import json
 import requests
-import os
+from tokens import DStoken
 
 settings = {
     'bot': 'flurix[BOT]',
@@ -144,4 +144,4 @@ async def on_message(message):
 
 print('DiscordBOT v0.4 by flurix запущен')
 
-bot.run(TOKEN)
+bot.run(DStoken)
