@@ -152,6 +152,15 @@ async def on_message(message):
 		await message.delete()
 		await channel.send(embed = discord.Embed(description = f'{message.author}, прошу не материться на сервере.',color=0xFF0000)) 
 
+cool_words = ['бот крутой', 'бот лучший','бот топ','бот классный','бот прикольный']		
+@bot.event
+async def on_message(message):
+	channel = bot.get_channel( 734072439620763733 )
+	await bot.process_commands( message )
+	msg = message.content.lower()
+	if msg in cool_words:
+		await channel.send(embed = discord.Embed(description = f'{message.author}, cпасибо :) Ты тоже крут!',color=0xFF0000)) 
+
 
 print('DiscordBOT v0.4 by flurix запущен')
 
