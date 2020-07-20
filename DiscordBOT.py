@@ -5,7 +5,6 @@ import requests
 import os
 from Cybernator import Paginator as pag
 from discord.utils import get
-import youtube_dl
 
 settings = {
     'bot': 'flurix[BOT]',
@@ -14,12 +13,11 @@ settings = {
 
 bot = commands.Bot(command_prefix = settings['prefix'])
 bot.remove_command('help')
-version = 'stable v1'
 
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=" !info"))
-    print('DiscordBOT {version} by flurix запущен')
+    print('DiscordBOT stable v1 by flurix запущен')
 
 @bot.command()
 async def hello(ctx):
@@ -29,7 +27,7 @@ async def hello(ctx):
 @bot.command(aliases = ['помощь','помоги','команды'])
 async def info(ctx):
 	embed1 = discord.Embed(title = 'Обо мне', description = '''Привет!
-Я - бот FlurixX версии = {version}.
+Я - бот FlurixX версии = stable v1.
 На данный момент я нахожусь в активной разработке''', color = 0xFF8C00)
 	embed2 = discord.Embed(title = 'Команды', description = '''Список доступных комманд:
 !info - информация, которую вы сейчас видите
