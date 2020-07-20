@@ -19,6 +19,59 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=" !info"))
 
 @bot.command()
+async def play(ctx, url: str):
+	global voice
+	voice = get(client.voice_clients, guild = ctx.guild)
+	channel = ctx.message.author.voice.channel
+	if voice and voice.is_connected():
+		await voice.move_to(channel)
+	else:
+		voice = await channel.connect
+	song_there=os.path.isfile('song.mp3')
+	try:
+		if song_there:
+			os.remove('song.mp3')
+			print('[log] Старый файл удалён.')
+	except PermissionError:
+		print('[log] Не удалось удалить файл')
+	await ctx.send('Идёт загрузка аудиофайла, ожидайте...')
+
+	voice = get(client.voice_clients, guild = ctx.guild)
+	ydl_opts = {
+		'format' : 'bestaudio/best',
+		'postprocessors' : [{
+			'key' : 'FFmpegExtractAudio'
+			'preferredcodec' : 'mp3',
+			'preferredquality' : '192'
+		}],
+	}
+	with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+		print('[log] Загружаю музыку...')
+		ydl.download([url])
+
+	for file in os.listdir('./'):
+		if file.endswith('.mp3'):
+			name = file
+			print(f'[log] Переименовываю файл {file}')
+			os.rename(file, 'song.mp3')
+
+	voice.play(discord.FFmpegPCMAudio('song.mp3'), after = lambda e: print(f'[log] {name}, музыка закончила проигрывание...'))
+	voice.source = discord.PCMVolumeTransformer('voice.source')
+	voice.source.volume = 0.07
+
+	songname = name.rsplit('-', 2)
+	await ctx.send(f'Сейчас играет: {song_name[0]}')
+
+@bot.command()
+async def leave(ctx):
+	voice = get(client.voice_clients, guild = ctx.guild)
+	channel = ctx.message.author.voice.channel
+	if voice and voice.is_connected():
+		await voice.disconnect()
+	else:
+		voice = await connect.channel
+
+@bot.command()
 async def hello(ctx):
     author = ctx.message.author
     await ctx.send(f'Привет, {author.mention}!')
