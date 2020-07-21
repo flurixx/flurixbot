@@ -27,7 +27,7 @@ async def start(ctx,name="muted"):
 				return role
 			else:
 				perms = discord.Permissions(send_messages=False)
-				await ctx.guild.create_role(name="MUTED", Permissions=perms)
+				await ctx.guild.create_role(name="MUTED", permissions=perms)
 				await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
 Удачного пользования :)''', color = 0x49FF33))
 
