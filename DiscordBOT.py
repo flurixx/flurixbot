@@ -93,7 +93,7 @@ async def kick_error(ctx,error):
 #Tempban(бан на время)
 @bot.command()
 @has_permissions(ban_members=True)
-async def ban(ctx, user:discord.User, duration: int):
+async def tempban(ctx, user:discord.User, duration: int):
 	await ctx.guild.ban(user)
 	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был забанен на сервере на {duration} секунд.',color=0xFF0000))
 	await asyncio.sleep(duration)
