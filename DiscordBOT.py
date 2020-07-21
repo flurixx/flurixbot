@@ -34,6 +34,23 @@ async def game(ctx):
 	else:
 		await channel.send(embed = discord.Embed(description = ':first_quarter_moon: Монета встала ребром! Шанс этого всего 1%!', color = 0x49FF33))
 		
+@bot.command()
+async def game2(ctx):
+	channel = bot.get_channel( 734072439620763733 )
+	await channel.send(embed = discord.Embed(description = '''Игра flurixQuest началась!
+Вы - отважный путешественик, взяли квест на легкий, казалось бы фарм мобов в подземелье.
+Вот вы уже спустились в поздемелье, как вдруг за вашей спиной закрываются ворота
+Ваши действия:
+1) Попытаться открыть ворота
+2) Зажечь факел и идти дальше''', color = 0xFF8C00))
+	deystviya = input()
+	if deystviya == '1':
+		await channel.send(embed = discord.Embed(description = 'Вы попытались открыть ворота и умерли от истощения :(', color = 0xFF0000))
+	elif deystviya == '2':
+		await channel.send(embed = discord.Embed(description = 'Вы зажгли факел и сгорели :(', color = 0xFF0000))
+	else:
+		await channel.send(embed = discord.Embed(description = 'Такого варианта нет!', color = 0xFF0000))
+		
 @bot.command(aliases = ['помощь','помоги','команды'])
 async def info(ctx):
 	embed1 = discord.Embed(title = 'Обо мне', description = '''Привет!
