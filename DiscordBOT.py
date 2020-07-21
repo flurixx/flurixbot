@@ -10,7 +10,7 @@ import time
 import asyncio
 
 settings = {
-    'bot': 'flurix[BOT]',
+    'bot': 'flurixX',
     'prefix': '!'
 }
 
@@ -59,70 +59,62 @@ async def info(ctx):
 @bot.command( pass_context = True )
 @commands.has_role('Админ')
 async def clear( ctx, amount = 10000):
-	channel = bot.get_channel( 734072439620763733 )
 	await ctx.channel.purge( limit = amount )
-	await channel.send(embed = discord.Embed(description = f"""Привет! Если ты видишь это сообщение то чат был очищен.
+	await ctx.send(embed = discord.Embed(description = f"""Привет! Если ты видишь это сообщение то чат был очищен.
 Список команд - !info""",color=0x008080))
 
 @clear.error
 async def clear_error(ctx,error):
-	channel = bot.get_channel( 734072439620763733 )
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
 	if isinstance(error, commands.MissingPermissions):
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 #Кик пользователя
 @bot.command( pass_context = True )
 @commands.has_role('Админ')
 async def kick( ctx, member: discord.Member, *, reason = 'Вы были кикнуты с сервера' ):
-	channel = bot.get_channel( 734072439620763733 )
 	await ctx.channel.purge( limit = 1)
 	await member.kick(reason = reason)
-	await channel.send(embed = discord.Embed(description = f'{member.name}, был исключён с сервера.',color=0xFF0000))
+	await ctx.send(embed = discord.Embed(description = f'{member.name}, был исключён с сервера.',color=0xFF0000))
 
 @kick.error
 async def kick_error(ctx,error):
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
-		channel = bot.get_channel( 734072439620763733 )
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
 	if isinstance(error, commands.MissingRole):
 		channel = bot.get_channel( 734072439620763733 )
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 #Tempmute(мут на время)
 @bot.command()
 @commands.has_role('Админ')
 async def tempmute(ctx, member:discord.Member, duration: int):
-	channel = bot.get_channel( 734072439620763733 )
 	role = discord.utils.get(ctx.guild.roles, name="MUTED")
 	await member.add_roles(role)
-	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был замьючен на сервере на {duration} секунд.',color=0xFF0000))
+	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был замьючен на сервере на {duration} секунд.',color=0xFF0000))
 	await asyncio.sleep(duration)
 	await member.remove_roles(role)	
-	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был размьючен на сервере спустя {duration} секунд.',color=0xFF0000))
+	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был размьючен на сервере спустя {duration} секунд.',color=0xFF0000))
 
 #Ошибка tempmute	
 @tempmute.error
 async def tempmute_error(ctx,error):
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
-		channel = bot.get_channel( 734072439620763733 )
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
 	if isinstance(error, commands.MissingRole):
-		channel = bot.get_channel( 734072439620763733 )
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 		
 #Убираем мут у пользователя
 @bot.command()
 @commands.has_role('Админ')
 async def unmute(ctx, member:discord.Member):
-	channel = bot.get_channel( 734072439620763733 )
 	role = discord.utils.get(ctx.guild.roles, name="MUTED")
 	await member.remove_roles(role)
-	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был размьючен!',color=0x49FF33))
+	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был размьючен!',color=0x49FF33))
 
 #Бан пользователя
 @bot.command()
@@ -130,17 +122,15 @@ async def unmute(ctx, member:discord.Member):
 async def ban( ctx, member: discord.Member, *, reason = 'Вы были забанены на сервере' ):
 	await ctx.channel.purge( limit = 1)
 	await member.ban(reason = reason)
-	await ctx.send(f'Пользователь {member.name} был забанен на сервере.')
+	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был забанен на сервере.',color=0xFF0000))
 	
 @ban.error
 async def ban_error(ctx,error):
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
-		channel = bot.get_channel( 734072439620763733 )
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
 	if isinstance(error, commands.MissingRole):
-		channel = bot.get_channel( 734072439620763733 )
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 #Разбан пользователя
 @bot.command()
@@ -158,58 +148,50 @@ async def unban( ctx, *, member ):
 async def unban_error(ctx,error):
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
-		channel = bot.get_channel( 734072439620763733 )
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент без @',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент без @',color=0xFF0000))
 	if isinstance(error, commands.MissingRole):
-		channel = bot.get_channel( 734072439620763733 )
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 
 #Авто-выдача роли Участник при заходе на сервер
 @bot.event
 async def on_member_join( member ):
-	channel = bot.get_channel( 734072439620763733 )
 	role = discord.utils.get( member.guild.roles, id = 734137828652482570 )
 	await member.add_roles( role )
-	await channel.send ( embed = discord.Embed(description = f'Привет, ``{member.name}``, добро пожаловать на сервер! Информация - !info', color = 0x49FF33))
+	await ctx.send ( embed = discord.Embed(description = f'Привет, ``{member.name}``, добро пожаловать на сервер! Информация - !info', color = 0x49FF33))
 
 #Мут пользователя
 @bot.command()
 @commands.has_role( 'Админ' )
 async def mute( ctx, member: discord.Member ):
-	channel = bot.get_channel( 734072439620763733 )
 	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'MUTED' )
 	await member.add_roles( mute_role )
-	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был замьючен на сервере',color=0xFF0000))
+	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был замьючен на сервере',color=0xFF0000))
 
 @mute.error
 async def mute_error(ctx,error):
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
-		channel = bot.get_channel( 734072439620763733 )
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
 	if isinstance(error, commands.MissingPermissions):
-		channel = bot.get_channel( 734072439620763733 )
-		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 bad_words = ['сука','блять','пидорас','еблан','хуесос','хуй','пизда','ебал','хуйня','чмо']
 @bot.event
 async def on_message(message):
-	channel = bot.get_channel( 734072439620763733 )
 	await bot.process_commands( message )
 	msg = message.content.lower()
 	if msg in bad_words:
 		await message.delete()
-		await channel.send(embed = discord.Embed(description = f'{message.author}, прошу не материться на сервере.',color=0xFF0000)) 
+		await ctx.send(embed = discord.Embed(description = f'{message.author}, прошу не материться на сервере.',color=0xFF0000)) 
 
 cool_words = ['бот крутой', 'бот лучший','бот топ','бот классный','бот прикольный', 'топ бот', 'крутой бот', 'классный бот','лучший бот','прикольный бот']		
 @bot.event
 async def on_message(message):
-	channel = bot.get_channel( 734072439620763733 )
 	await bot.process_commands( message )
 	msg = message.content.lower()
 	if msg in cool_words:
-		await channel.send(embed = discord.Embed(description = f'{message.author}, cпасибо :) Ты тоже крут!',color=0xFF1493)) 
+		await ctx.send(embed = discord.Embed(description = f'{message.author}, cпасибо :) Ты тоже крут!',color=0xFF1493)) 
 
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
