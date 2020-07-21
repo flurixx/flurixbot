@@ -22,7 +22,7 @@ bot.remove_command('help')
 @has_permissions(manage_roles=True)
 async def start(ctx):
 	guild = ctx.guild
-	perms = discord.Permissions(send_message=False)
+	perms = discord.Permissions(send_messages=False)
 	await guild.create_role(name="MUTED", Permissions=perms)
 	await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
 Удачного пользования :)''', color = 0x49FF33))
