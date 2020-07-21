@@ -19,7 +19,7 @@ bot = commands.Bot(command_prefix = settings['prefix'])
 bot.remove_command('help')
 
 @bot.command()
-@has_permissions(Administrator=True)
+@has_permissions(manage_server=True)
 async def start(ctx):
     guild = ctx.guild
     perms = discord.Permissions(send_message=False)
