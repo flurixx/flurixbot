@@ -8,6 +8,7 @@ from discord.utils import get
 import random
 import time
 import asyncio
+from discord.ext.commands import has_permissions
 
 settings = {
     'bot': 'flurixX',
