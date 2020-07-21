@@ -34,15 +34,6 @@ def OneTime(*args):
 		await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
 Удачного пользования :)''', color = 0x49FF33))
 
-@bot.command()
-@has_permissions(manage_server=True)
-async def start(ctx):
-    guild = ctx.guild
-    perms = discord.Permissions(send_message=False)
-    await guild.create_role(name="MUTED", Permissions=perms)
-    await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
-Удачного пользования :)''', color = 0x49FF33))
-
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=" !info"))
