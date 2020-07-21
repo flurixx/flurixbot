@@ -21,6 +21,7 @@ bot.remove_command('help')
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=" !info"))
     print('DiscordBOT stable v1 by flurix запущен')
+    print('Ссылка-приглашение для бота: https://discord.com/api/oauth2/authorize?client_id=734071346312773723&permissions=8&scope=bot')
 	
 @bot.command()
 async def game(ctx):
