@@ -18,10 +18,9 @@ settings = {
 bot = commands.Bot(command_prefix = settings['prefix'])
 bot.remove_command('help')
 
-rolename == 'muted'
 @bot.command()
 @has_permissions(manage_roles=True)
-async def start(ctx,name:rolename):
+async def start(ctx,name:str('muted'):
 		for role in ctx.guild.roles:
 			if name.lower() in role.name.lower():
 				await ctx.send(embed = discord.Embed(description = 'Бот уже настроен!', color = 0x49FF33))
