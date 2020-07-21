@@ -90,14 +90,27 @@ async def kick_error(ctx,error):
 		channel = bot.get_channel( 734072439620763733 )
 		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
+#Tempmute(мут на время)
 @bot.command()
+@commands.has_role('Админ')
 async def tempmute(ctx, member:discord.Member, duration: int):
 	role = discord.utils.get(ctx.guild.roles, name="MUTED")
-	await member.add_roles(mute_role)
+	await member.add_roles(role)
 	await ctx.send(f'Пользователь {member.name}, был замьючен на сервере на {duration}.' )
 	await asyncio.sleep(duration)
 	await member.remove_roles(role)	
 	await ctx.send(f'Пользователь {member.name}, был размьючен спустя {duration}.' )
+
+#Ошибка tempmute	
+@tempmute.error
+async def tempmute_error(ctx,error):
+	author = ctx.message.author
+	if isinstance (error, commands.MissingRequiredArgument):
+		channel = bot.get_channel( 734072439620763733 )
+		await channel.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
+	if isinstance(error, commands.MissingRole):
+		channel = bot.get_channel( 734072439620763733 )
+		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 #Бан пользователя
 @bot.command( pass_context = True )
