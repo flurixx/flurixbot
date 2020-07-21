@@ -28,9 +28,9 @@ async def hello(ctx):
 @bot.command()
 async def game(ctx):
 	game_random = random.randint(1, 3),
-	if game_random = '1':
+	if game_random == 1:
 		await channel.send(embed = discord.Embed(description = 'Выпала решка!', color = 0xFF8C00))
-	elif game_random = '2':
+	elif game_random == 2:
 		await channel.send(embed = discord.Embed(description = 'Выпал орёл!', color = 0xFF8C00))
 	else:
 		await channel.send(embed = discord.Embed(description = 'Монета встала ребром!', color = 0xFF8C00))
