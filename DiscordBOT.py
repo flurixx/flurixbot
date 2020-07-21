@@ -27,7 +27,7 @@ async def game(ctx):
 	await channel.send(embed = discord.Embed(description = 'Игра "Орёл или решка" началась!', color = 0x49FF33))
 	if game_random <= 50:
 		await channel.send(embed = discord.Embed(description = 'Выпала решка!', color = 0x49FF33))
-	elif game_random >= 51, game_random <= 100:
+	elif game_random >= 51 and game_random <= 100:
 		await channel.send(embed = discord.Embed(description = 'Выпал орёл!', color = 0x49FF33))
 	else:
 		await channel.send(embed = discord.Embed(description = 'Монета встала ребром! Шанс этого всего 1%!', color = 0x49FF33))
