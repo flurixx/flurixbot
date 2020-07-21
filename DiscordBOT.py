@@ -115,6 +115,15 @@ async def tempmute_error(ctx,error):
 	if isinstance(error, commands.MissingRole):
 		channel = bot.get_channel( 734072439620763733 )
 		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
+		
+#Убираем мут у пользователя
+@bot.command()
+@commands.has_role('Админ')
+sync def unmute(ctx, member:discord.Member):
+	channel = bot.get_channel( 734072439620763733 )
+	role = discord.utils.get(ctx.guild.roles, name="MUTED")
+	await member.remove_roles(role)
+	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был размьючен!',color=0x49FF33))
 
 #Бан пользователя
 @bot.command( pass_context = True )
