@@ -7,6 +7,7 @@ from Cybernator import Paginator as pag
 from discord.utils import get
 import random
 import time
+import asyncio
 
 settings = {
     'bot': 'flurix[BOT]',
