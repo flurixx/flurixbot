@@ -86,19 +86,28 @@ async def kick_error(ctx,error):
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
-	if isinstance(error, commands.MissingRole):
+	if isinstance(error, commands.MissingPermissions):
 		channel = bot.get_channel( 734072439620763733 )
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 #Tempban(бан на время)
 @bot.command()
 @has_permissions(ban_members=True)
-async def tempban(ctx, user:discord.User, duration: int):
-	await ctx.guild.ban(user)
+async def tempban(ctx, member:discord.User, duration: int):
+	await ctx.guild.ban(member)
 	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был забанен на сервере на {duration} секунд.',color=0xFF0000))
 	await asyncio.sleep(duration)
 	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был разбанен на сервере спустя {duration} секунд.',color=0xFF0000))
-	await ctx.guild.unban(user)
+	await ctx.guild.unban(member)
+	
+#Ошибка tempban	
+@tempban.error
+async def tempban_error(ctx,error):
+	author = ctx.message.author
+	if isinstance (error, commands.MissingRequiredArgument):
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
+	if isinstance(error, commands.MissingPermissions):
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 #Tempmute(мут на время)
 @bot.command()
@@ -117,7 +126,7 @@ async def tempmute_error(ctx,error):
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
-	if isinstance(error, commands.MissingRole):
+	if isinstance(error, commands.MissingPermissions):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 		
 #Убираем мут у пользователя
@@ -141,7 +150,7 @@ async def ban_error(ctx,error):
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
-	if isinstance(error, commands.MissingRole):
+	if isinstance(error, commands.MissingPermissions):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 #Разбан пользователя
@@ -161,7 +170,7 @@ async def unban_error(ctx,error):
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент без @',color=0xFF0000))
-	if isinstance(error, commands.MissingRole):
+	if isinstance(error, commands.MissingPermissions):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 
