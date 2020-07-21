@@ -126,7 +126,7 @@ async def unmute(ctx, member:discord.Member):
 	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был размьючен!',color=0x49FF33))
 
 #Бан пользователя
-@bot.command( pass_context = True )
+@bot.command()
 @commands.has_role('Админ')
 async def ban( ctx, member: discord.Member, *, reason = 'Вы были забанены на сервере' ):
 	await ctx.channel.purge( limit = 1)
@@ -144,7 +144,7 @@ async def ban_error(ctx,error):
 		await channel.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 #Разбан пользователя
-@bot.command( pass_context = True )
+@bot.command()
 @commands.has_role('Админ')
 async def unban( ctx, *, member ):
 	await ctx.channel.purge( limit = 1)
@@ -175,13 +175,13 @@ async def on_member_join( member ):
 	await channel.send ( embed = discord.Embed(description = f'Привет, ``{member.name}``, добро пожаловать на сервер! Информация - !info', color = 0x49FF33))
 
 #Мут пользователя
-@bot.command( pass_context = True )
+@bot.command()
 @commands.has_role( 'Админ' )
 async def mute( ctx, member: discord.Member ):
-	await ctx.channel.purge( limit = 1 )
+	channel = bot.get_channel( 734072439620763733 )
 	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'MUTED' )
 	await member.add_roles( mute_role )
-	await ctx.send(f'Пользователь {member.name}, был замьючен на сервере.' )
+	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был замьючен на сервере',color=0xFF0000))
 
 @mute.error
 async def mute_error(ctx,error):
