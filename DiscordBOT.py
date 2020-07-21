@@ -119,7 +119,7 @@ async def tempmute_error(ctx,error):
 #Убираем мут у пользователя
 @bot.command()
 @commands.has_role('Админ')
-sync def unmute(ctx, member:discord.Member):
+async def unmute(ctx, member:discord.Member):
 	channel = bot.get_channel( 734072439620763733 )
 	role = discord.utils.get(ctx.guild.roles, name="MUTED")
 	await member.remove_roles(role)
