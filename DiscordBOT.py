@@ -22,7 +22,7 @@ async def on_ready():
     print('DiscordBOT stable v1 by flurix запущен')
 	
 @bot.command()
-async def game(ctx,message):
+async def game(ctx):
 	channel = bot.get_channel( 734072439620763733 )
 	game_random = random.randint(1, 101)
 	await channel.send(embed = discord.Embed(description = 'Бросаю монетку...', color = 0x49FF33))
