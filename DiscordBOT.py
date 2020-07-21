@@ -37,6 +37,7 @@ async def game(ctx):
 @bot.command()
 async def game2(ctx,message):
 	channel = bot.get_channel( 734072439620763733 )
+	await bot.process_commands( message )
 	msg = message.content.lower()
 	await channel.send(embed = discord.Embed(description = '''Игра flurixQuest началась!
 Вы - отважный путешественик, взяли квест на легкий, казалось бы фарм мобов в подземелье.
