@@ -30,6 +30,7 @@ async def start(ctx,name="muted"):
 				await ctx.guild.create_role(name="MUTED", permissions=perms)
 				await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
 Удачного пользования :)''', color = 0x49FF33))
+				return role
 
 @bot.event
 async def on_ready():
