@@ -95,12 +95,13 @@ async def kick_error(ctx,error):
 @bot.command()
 @commands.has_role('Админ')
 async def tempmute(ctx, member:discord.Member, duration: int):
+	channel = bot.get_channel( 734072439620763733 )
 	role = discord.utils.get(ctx.guild.roles, name="MUTED")
 	await member.add_roles(role)
-	await ctx.send(f'Пользователь {member.name}, был замьючен на сервере на {duration}.' )
+	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был замьючен на сервере на {duration} секунд.',color=0xFF0000)))
 	await asyncio.sleep(duration)
 	await member.remove_roles(role)	
-	await ctx.send(f'Пользователь {member.name}, был размьючен спустя {duration}.' )
+	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был размьючен на сервере спустя {duration} секунд.',color=0xFF0000)))
 
 #Ошибка tempmute	
 @tempmute.error
