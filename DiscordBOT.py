@@ -5,6 +5,7 @@ import requests
 import os
 from Cybernator import Paginator as pag
 from discord.utils import get
+import random
 
 settings = {
     'bot': 'flurix[BOT]',
@@ -24,6 +25,16 @@ async def hello(ctx):
     author = ctx.message.author
     await ctx.send(f'Привет, {author.mention}!')
 	
+@bot.command()
+async def game(ctx):
+	game_random = [random.randint(1, 3)]
+	if game_random = 1:
+		embed = discord.Embed(description = 'Выпала решка!', color = 0xFF8C00)
+	elif game_random = 2:
+		embed = discord.Embed(description = 'Выпал орёл!', color = 0xFF8C00)
+	else:
+		embed = discord.Embed(description = 'Монета встала ребром!', color = 0xFF8C00)
+		
 @bot.command(aliases = ['помощь','помоги','команды'])
 async def info(ctx):
 	embed1 = discord.Embed(title = 'Обо мне', description = '''Привет!
