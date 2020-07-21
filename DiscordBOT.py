@@ -58,7 +58,7 @@ async def info(ctx):
 
 #Очистка чата
 @bot.command( pass_context = True )
-@commands.has_role('Админ')
+@has_permissions(manage_messages=True)
 async def clear( ctx, amount = 10000):
 	await ctx.channel.purge( limit = amount )
 	await ctx.send(embed = discord.Embed(description = f"""Привет! Если ты видишь это сообщение то чат был очищен.
@@ -74,7 +74,7 @@ async def clear_error(ctx,error):
 
 #Кик пользователя
 @bot.command( pass_context = True )
-@commands.has_role('Админ')
+@has_permissions(kick_members=True)
 async def kick( ctx, member: discord.Member, *, reason = 'Вы были кикнуты с сервера' ):
 	await ctx.channel.purge( limit = 1)
 	await member.kick(reason = reason)
@@ -89,9 +89,19 @@ async def kick_error(ctx,error):
 		channel = bot.get_channel( 734072439620763733 )
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
+#Tempban(бан на время)
+@bot.command()
+@has_permissions(ban_members=True)
+async def ban(ctx, user:discord.User, duration: int):
+	await ctx.guild.ban(user)
+	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был забанен на сервере на {duration} секунд.',color=0xFF0000))
+	await asyncio.sleep(duration)
+	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был разбанен на сервере спустя {duration} секунд.',color=0xFF0000))
+	await ctx.guild.unban(user)
+
 #Tempmute(мут на время)
 @bot.command()
-@commands.has_role('Админ')
+@has_permissions(manage_roles=True)
 async def tempmute(ctx, member:discord.Member, duration: int):
 	role = discord.utils.get(ctx.guild.roles, name="MUTED")
 	await member.add_roles(role)
@@ -111,7 +121,7 @@ async def tempmute_error(ctx,error):
 		
 #Убираем мут у пользователя
 @bot.command()
-@commands.has_role('Админ')
+@has_permissions(manage_roles=True)
 async def unmute(ctx, member:discord.Member):
 	role = discord.utils.get(ctx.guild.roles, name="MUTED")
 	await member.remove_roles(role)
@@ -119,7 +129,7 @@ async def unmute(ctx, member:discord.Member):
 
 #Бан пользователя
 @bot.command()
-@commands.has_role('Админ')
+@has_permissions(ban_members=True)
 async def ban( ctx, member: discord.Member, *, reason = 'Вы были забанены на сервере' ):
 	await ctx.channel.purge( limit = 1)
 	await member.ban(reason = reason)
@@ -135,7 +145,7 @@ async def ban_error(ctx,error):
 
 #Разбан пользователя
 @bot.command()
-@commands.has_role('Админ')
+@has_permissions(ban_members=True)
 async def unban( ctx, *, member ):
 	await ctx.channel.purge( limit = 1)
 	banned_users = await ctx.guild.bans()
@@ -163,7 +173,7 @@ async def on_member_join( member ):
 
 #Мут пользователя
 @bot.command()
-@commands.has_role( 'Админ' )
+@has_permissions(manage_roles=True)
 async def mute( ctx, member: discord.Member ):
 	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'MUTED' )
 	await member.add_roles( mute_role )
@@ -176,15 +186,6 @@ async def mute_error(ctx,error):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
 	if isinstance(error, commands.MissingPermissions):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
-
-bad_words = ['сука','блять','пидорас','еблан','хуесос','хуй','пизда','ебал','хуйня','чмо']
-@bot.event
-async def on_message(message):
-	await bot.process_commands( message )
-	msg = message.content.lower()
-	if msg in bad_words:
-		await message.delete()
-		await ctx.send(embed = discord.Embed(description = f'{message.author}, прошу не материться на сервере.',color=0xFF0000)) 
 
 cool_words = ['бот крутой', 'бот лучший','бот топ','бот классный','бот прикольный', 'топ бот', 'крутой бот', 'классный бот','лучший бот','прикольный бот']		
 @bot.event
