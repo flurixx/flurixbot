@@ -26,14 +26,14 @@ async def on_ready():
 async def game(ctx):
 	channel = bot.get_channel( 734072439620763733 )
 	game_random = random.randint(1, 101)
-	await channel.send(embed = discord.Embed(description = 'Бросаю монетку...', color = 0x49FF33))
+	await ctx.send(embed = discord.Embed(description = 'Бросаю монетку...', color = 0x49FF33))
 	time.sleep(1)
 	if game_random <= 50:
-		await channel.send(embed = discord.Embed(description = ':full_moon: Выпала решка!', color = 0x49FF33))
+		await ctx.send(embed = discord.Embed(description = ':full_moon: Выпала решка!', color = 0x49FF33))
 	elif game_random >= 51 and game_random <= 100:
-		await channel.send(embed = discord.Embed(description = ':new_moon: Выпал орёл!', color = 0x49FF33))
+		await ctx.send(embed = discord.Embed(description = ':new_moon: Выпал орёл!', color = 0x49FF33))
 	else:
-		await channel.send(embed = discord.Embed(description = ':first_quarter_moon: Монета встала ребром! Шанс этого всего 1%!', color = 0x49FF33))
+		await ctx.send(embed = discord.Embed(description = ':first_quarter_moon: Монета встала ребром! Шанс этого всего 1%!', color = 0x49FF33))
 				
 @bot.command(aliases = ['помощь','помоги','команды'])
 async def info(ctx):
