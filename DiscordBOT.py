@@ -19,11 +19,6 @@ bot.remove_command('help')
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=" !info"))
     print('DiscordBOT stable v1 by flurix запущен')
-
-@bot.command()
-async def hello(ctx):
-    author = ctx.message.author
-    await ctx.send(f'Привет, {author.mention}!')
 	
 @bot.command()
 async def game(ctx):
@@ -44,7 +39,7 @@ async def info(ctx):
 На данный момент я нахожусь в активной разработке''', color = 0xFF8C00)
 	embed2 = discord.Embed(title = 'Команды', description = '''Список доступных комманд:
 !info - информация, которую вы сейчас видите
-!hello - поздороваться с ботом
+!game - игра "Орёл или Решка". Только рандом!
 !clear - очистка чата(Доступно только роли Админ)
 !kick - кик пользователя с сервера(Доступно только роли Админ)
 !ban и !unban - бан и соответственно разбан пользователя на сервере(Доступно только роли Админ)
