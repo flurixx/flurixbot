@@ -23,7 +23,7 @@ async def on_ready():
 	
 @bot.command()
 async def game(ctx):
-	channel = bot.get_channel( 734072439620763733 )
+	channel = ctx.message.author.voice.channel
 	game_random = random.randint(1, 101)
 	await channel.send(embed = discord.Embed(description = 'Бросаю монетку...', color = 0x49FF33))
 	time.sleep(1)
