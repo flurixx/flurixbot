@@ -177,9 +177,9 @@ async def unban_error(ctx,error):
 #Авто-выдача роли Участник при заходе на сервер
 @bot.event
 async def on_member_join( member ):
+	await ctx.send ( embed = discord.Embed(description = f'Привет, ``{member.name}``, добро пожаловать на сервер! Информация - !info', color = 0x49FF33))
 	role = discord.utils.get( member.guild.roles, id = 734137828652482570 )
 	await member.add_roles( role )
-	await ctx.send ( embed = discord.Embed(description = f'Привет, ``{member.name}``, добро пожаловать на сервер! Информация - !info', color = 0x49FF33))
 
 #Мут пользователя
 @bot.command()
