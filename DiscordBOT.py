@@ -46,6 +46,8 @@ async def info(ctx):
 !clear - очистка чата(Доступно только роли Админ)
 !kick - кик пользователя с сервера(Доступно только роли Админ)
 !ban и !unban - бан и соответственно разбан пользователя на сервере(Доступно только роли Админ)
+!tempban - временный бан пользователя на сервере(Доступно только роли Админ)
+!tempmute - временная блокировка чата пользователю(Доступно только роли Админ)
 !mute - блокировка чата пользователю(Доступно только роли Админ)''', color = 0xFF8C00)
 	embed3 = discord.Embed(title = 'План разработки', description = '''В скором времени будут доступны и другие комманды.
 Например, скоро разработчик планирует добавить систему валюты и другие плюшки...''', color = 0xFF8C00)
@@ -98,10 +100,10 @@ async def tempmute(ctx, member:discord.Member, duration: int):
 	channel = bot.get_channel( 734072439620763733 )
 	role = discord.utils.get(ctx.guild.roles, name="MUTED")
 	await member.add_roles(role)
-	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был замьючен на сервере на {duration} секунд.',color=0xFF0000)))
+	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был замьючен на сервере на {duration} секунд.',color=0xFF0000))
 	await asyncio.sleep(duration)
 	await member.remove_roles(role)	
-	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был размьючен на сервере спустя {duration} секунд.',color=0xFF0000)))
+	await channel.send(embed = discord.Embed(description = f'Пользователь {member.name} был размьючен на сервере спустя {duration} секунд.',color=0xFF0000))
 
 #Ошибка tempmute	
 @tempmute.error
