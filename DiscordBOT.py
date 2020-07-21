@@ -18,20 +18,13 @@ settings = {
 bot = commands.Bot(command_prefix = settings['prefix'])
 bot.remove_command('help')
 
-FirstTime=True
-...
-def OneTime(*args):
-	global FirstTime
-	if not FirstTime:
-		return 0
-	FirstTime=False
-	@bot.command()
-	@has_permissions(manage_roles=True)
-	async def start(ctx):
-		guild = ctx.guild
-		perms = discord.Permissions(send_message=False)
-		await guild.create_role(name="MUTED", Permissions=perms)
-		await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
+@bot.command()
+@has_permissions(manage_roles=True)
+async def start(ctx):
+	guild = ctx.guild
+	perms = discord.Permissions(send_message=False)
+	await guild.create_role(name="MUTED", Permissions=perms)
+	await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
 Удачного пользования :)''', color = 0x49FF33))
 
 @bot.event
