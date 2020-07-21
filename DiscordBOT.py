@@ -27,7 +27,7 @@ async def hello(ctx):
 	
 @bot.command()
 async def game(ctx):
-	game_random = [random.randint(1, 3)]
+	game_random = random.randint(1, 3)
 	if game_random = 1:
 		embed = discord.Embed(description = 'Выпала решка!', color = 0xFF8C00)
 	elif game_random = 2:
