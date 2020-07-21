@@ -18,6 +18,15 @@ settings = {
 bot = commands.Bot(command_prefix = settings['prefix'])
 bot.remove_command('help')
 
+@bot.command()
+@commands.has_permissions(Administrator= True)
+async def start(ctx):
+    guild = ctx.guild
+    perms = discord.Permissions(send_message=False)
+    await guild.create_role(name="MUTED", Permissions=perms)
+    wait ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
+Удачного пользования :)''', color = 0x49FF33))
+
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=" !info"))
@@ -40,8 +49,10 @@ async def game(ctx):
 async def info(ctx):
 	embed1 = discord.Embed(title = 'Обо мне', description = '''Привет!
 Я - бот FlurixX версии = stable v1.
-На данный момент я нахожусь в активной разработке''', color = 0xFF8C00)
+На данный момент я нахожусь в активной разработке
+Чтобы бот работал правильно - введите команду !start''', color = 0xFF8C00)
 	embed2 = discord.Embed(title = 'Команды', description = '''Список доступных комманд:
+!start - первоначальная настройка бота на сервере(вводить единожды)
 !info - информация, которую вы сейчас видите
 !game - игра "Орёл или Решка". Только рандом!
 !clear - очистка чата(Доступно только роли Админ)
@@ -51,7 +62,7 @@ async def info(ctx):
 !tempmute - временная блокировка чата пользователю(Доступно только роли Админ)
 !mute - блокировка чата пользователю(Доступно только роли Админ)''', color = 0xFF8C00)
 	embed3 = discord.Embed(title = 'План разработки', description = '''В скором времени будут доступны и другие комманды.
-Например, скоро разработчик планирует добавить систему валюты и другие плюшки...''', color = 0xFF8C00)
+Например, скоро разработчик планирует добавить систему валюты, уровней и другие плюшки...''', color = 0xFF8C00)
 	embeds = [embed1, embed2, embed3]
 	message = await ctx.send(embed = embed1)
 	page = pag(bot, message, only=ctx.author, use_more=False, embeds=embeds)
