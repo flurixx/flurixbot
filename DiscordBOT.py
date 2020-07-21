@@ -29,12 +29,13 @@ async def hello(ctx):
 async def game(ctx):
 	channel = bot.get_channel( 734072439620763733 )
 	game_random = random.randint(1, 3)
+	await channel.send(embed = discord.Embed(description = 'Игра "Орёл или решка" началась!', color = 0x49FF33))
 	if game_random == 1:
-		await channel.send(embed = discord.Embed(description = 'Выпала решка!', color = 0xFF8C00))
+		await channel.send(embed = discord.Embed(description = 'Выпала решка!', color = 0x49FF33))
 	elif game_random == 2:
-		await channel.send(embed = discord.Embed(description = 'Выпал орёл!', color = 0xFF8C00))
+		await channel.send(embed = discord.Embed(description = 'Выпал орёл!', color = 0x49FF33))
 	else:
-		await channel.send(embed = discord.Embed(description = 'Монета встала ребром!', color = 0xFF8C00))
+		await channel.send(embed = discord.Embed(description = 'Монета встала ребром!', color = 0x49FF33))
 		
 @bot.command(aliases = ['помощь','помоги','команды'])
 async def info(ctx):
