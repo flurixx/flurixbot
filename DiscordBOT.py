@@ -18,9 +18,9 @@ settings = {
 bot = commands.Bot(command_prefix = settings['prefix'])
 bot.remove_command('help')
 
+rolename = 'muted'
 @bot.command()
 @has_permissions(manage_roles=True)
-rolename == 'muted'
 async def start(ctx,name:rolename):
 		for role in ctx.guild.roles:
 			if name.lower() in role.name.lower():
