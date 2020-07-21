@@ -141,7 +141,7 @@ async def unmute(ctx, member:discord.Member):
 async def unmute_error(ctx,error):
 	author = ctx.message.author
 	if isinstance (error, commands.MissingRequiredArgument):
-		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент без @',color=0xFF0000))
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
 	if isinstance(error, commands.MissingPermissions):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
