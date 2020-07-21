@@ -6,6 +6,7 @@ import os
 from Cybernator import Paginator as pag
 from discord.utils import get
 import random
+import time
 
 settings = {
     'bot': 'flurix[BOT]',
@@ -24,7 +25,8 @@ async def on_ready():
 async def game(ctx):
 	channel = bot.get_channel( 734072439620763733 )
 	game_random = random.randint(1, 101)
-	await channel.send(embed = discord.Embed(description = 'Игра "Орёл или решка" началась!', color = 0x49FF33))
+	await channel.send(embed = discord.Embed(description = 'Бросаю монетку...', color = 0x49FF33))
+	time.sleep(1)
 	if game_random <= 50:
 		await channel.send(embed = discord.Embed(description = 'Выпала решка!', color = 0x49FF33))
 	elif game_random >= 51 and game_random <= 100:
