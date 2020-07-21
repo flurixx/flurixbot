@@ -23,6 +23,7 @@ bot.remove_command('help')
 async def start(ctx,name:'muted'):
 		for role in ctx.guild.roles:
 			if name.lower() in role.name.lower():
+				await ctx.send(embed = discord.Embed(description = 'Бот уже настроен!', color = 0x49FF33))
 				return role
 			else:
 				perms = discord.Permissions(send_messages=False)
