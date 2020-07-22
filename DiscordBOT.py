@@ -219,6 +219,11 @@ async def autorole_error(ctx,error):
 async def on_member_join(member):
 	role = discord.utils.get( member.guild.roles, id = autoroles )
 	await member.add_roles( role )
+	
+@bot.event
+async def on_member_join(ctx,member:discord.Member):
+	await ctx.send(embed = discord.Embed(description = f'''Приветствую, {member.name}, на нашем сервере!
+Список доступных команд - !info или !помощь''',color=0x49FF33))
 
 #Мут пользователя
 @bot.command()
@@ -235,14 +240,6 @@ async def mute_error(ctx,error):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент!',color=0xFF0000))
 	if isinstance(error, commands.MissingPermissions):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
-
-cool_words = ['бот крутой', 'бот лучший','бот топ','бот классный','бот прикольный', 'топ бот', 'крутой бот', 'классный бот','лучший бот','прикольный бот']		
-@bot.event
-async def on_message(message):
-	await bot.process_commands( message )
-	msg = message.content.lower()
-	if msg in cool_words:
-		await ctx.send(embed = discord.Embed(description = f'{message.author}, cпасибо :) Ты тоже крут!',color=0xFF1493)) 
 		
 # Команда не найдена
 @bot.event
