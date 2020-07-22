@@ -216,8 +216,7 @@ async def autorole_error(ctx,error):
 
 #Авто-выдача роли при заходе на сервер
 @bot.event
-async def on_member_join(member,ctx):
-	await ctx.send ( embed = discord.Embed(description = f'Привет, ``{member.name}``, добро пожаловать на сервер! Информация - !info', color = 0x49FF33))
+async def on_member_join(member):
 	role = discord.utils.get( member.guild.roles, id = autoroles )
 	await member.add_roles( role )
 
@@ -244,6 +243,12 @@ async def on_message(message):
 	msg = message.content.lower()
 	if msg in cool_words:
 		await ctx.send(embed = discord.Embed(description = f'{message.author}, cпасибо :) Ты тоже крут!',color=0xFF1493)) 
+		
+# Команда не найдена
+@bot.event
+async def on_command_error(ctx, error):
+	if isinstance(error, commands.CommandNotFound):
+	await ctx.send(embed = discord.Embed(description = f'{ctx.author.name}, команда не найдена!', color = 0xFF0000 ))
 
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
