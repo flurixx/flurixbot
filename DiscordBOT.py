@@ -9,6 +9,7 @@ import random
 import time
 import asyncio
 from discord.ext.commands import has_permissions
+import sqlite3
 
 settings = {
     'bot': 'flurixX',
@@ -18,12 +19,15 @@ settings = {
 bot = commands.Bot(command_prefix = settings['prefix'])
 bot.remove_command('help')
 
+db = sqlite3.connect('flurixbot.db')
+sql = db.cursor()
+
 @bot.command()
 @has_permissions(manage_roles=True)
 async def start(ctx,name="muted"):
 		guild = ctx.guild
 		for role in guild.roles:
-			if name.lower() in role.name.lower():
+			if name.lower() in role.name.lower() exists:
 				await ctx.send(embed = discord.Embed(description = 'Бот уже настроен!', color = 0x49FF33))
 				return role
 			else:
