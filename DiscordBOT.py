@@ -31,7 +31,7 @@ async def start(ctx,name="muted"):
 				await guild.create_role(name="muted", permissions=perms)
 				await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
 Удачного пользования :)''', color = 0x49FF33))
-				return role
+				return None
 
 @bot.event
 async def on_ready():
@@ -130,7 +130,7 @@ async def tempban_error(ctx,error):
 @bot.command()
 @has_permissions(manage_roles=True)
 async def tempmute(ctx, member:discord.Member, duration: int):
-	role = discord.utils.get(ctx.guild.roles, name="MUTED")
+	role = discord.utils.get(ctx.guild.roles, name="muted")
 	await member.add_roles(role)
 	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был замьючен на сервере на {duration} секунд.',color=0xFF0000))
 	await asyncio.sleep(duration)
@@ -150,7 +150,7 @@ async def tempmute_error(ctx,error):
 @bot.command()
 @has_permissions(manage_roles=True)
 async def unmute(ctx, member:discord.Member):
-	role = discord.utils.get(ctx.guild.roles, name="MUTED")
+	role = discord.utils.get(ctx.guild.roles, name="muted")
 	await member.remove_roles(role)
 	await ctx.send(embed = discord.Embed(description = f'Пользователь {member.name} был размьючен!',color=0x49FF33))
 	
@@ -197,13 +197,28 @@ async def unban_error(ctx,error):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите аргумент без @',color=0xFF0000))
 	if isinstance(error, commands.MissingPermissions):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
+		
+#Роль для авто-выдачи
+@bot.command()
+@has_permissions(manage_roles=True)
+async def autorole(ctx,autoroles:int):
+	global autoroles
+	await ctx.send ( embed = discord.Embed(description = f'Роль успешно добавлена в авто-выдачу!', color = 0x49FF33))
+	
+@autorole.error
+async def autorole_error(ctx,error):
+	author = ctx.message.author
+	if isinstance (error, commands.MissingRequiredArgument):
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите id роли!',color=0xFF0000))
+	if isinstance(error, commands.MissingPermissions):
+		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 
 
-#Авто-выдача роли Участник при заходе на сервер
+#Авто-выдача роли при заходе на сервер
 @bot.event
 async def on_member_join( member ):
 	await ctx.send ( embed = discord.Embed(description = f'Привет, ``{member.name}``, добро пожаловать на сервер! Информация - !info', color = 0x49FF33))
-	role = discord.utils.get( member.guild.roles, id = 734137828652482570 )
+	role = discord.utils.get( member.guild.roles, id = autoroles )
 	await member.add_roles( role )
 
 #Мут пользователя
