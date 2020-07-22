@@ -77,7 +77,7 @@ async def info(ctx):
 #Очистка чата
 @bot.command( pass_context = True )
 @has_permissions(manage_messages=True)
-async def clear( ctx, amount = 10000):
+async def clear( ctx, amount = 100000):
 	await ctx.channel.purge( limit = amount )
 	await ctx.send(embed = discord.Embed(description = f"""Привет! Если ты видишь это сообщение то чат был очищен.
 Список команд - !info""",color=0x008080))
@@ -204,6 +204,7 @@ async def unban_error(ctx,error):
 async def autorole(ctx,autoroles:int):
 	await ctx.send ( embed = discord.Embed(description = f'Роль успешно добавлена в авто-выдачу!', color = 0x49FF33))
 	
+	
 @autorole.error
 async def autorole_error(ctx,error):
 	author = ctx.message.author
@@ -215,9 +216,9 @@ async def autorole_error(ctx,error):
 
 #Авто-выдача роли при заходе на сервер
 @bot.event
-async def on_member_join( member,idm = autoroles ):
+async def on_member_join( member,autoroles ):
 	await ctx.send ( embed = discord.Embed(description = f'Привет, ``{member.name}``, добро пожаловать на сервер! Информация - !info', color = 0x49FF33))
-	role = discord.utils.get( member.guild.roles, id = idm )
+	role = discord.utils.get( member.guild.roles, id = autoroles )
 	await member.add_roles( role )
 
 #Мут пользователя
