@@ -25,7 +25,7 @@ sql = db.cursor()
 @bot.command()
 @has_permissions(manage_roles=True)
 async def start(ctx):
-		if get(ctx.guild.roles, name="muter"):
+		if get(ctx.guild.roles, name="muted"):
 			await ctx.send(embed = discord.Embed(description = 'Бот уже настроен!', color = 0x49FF33))
 		else:
 			perms = discord.Permissions(send_messages=False)
