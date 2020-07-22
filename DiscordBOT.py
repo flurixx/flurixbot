@@ -202,7 +202,6 @@ async def unban_error(ctx,error):
 @bot.command()
 @has_permissions(manage_roles=True)
 async def autorole(ctx,autoroles:int):
-	global autoroles
 	await ctx.send ( embed = discord.Embed(description = f'Роль успешно добавлена в авто-выдачу!', color = 0x49FF33))
 	
 @autorole.error
@@ -216,7 +215,7 @@ async def autorole_error(ctx,error):
 
 #Авто-выдача роли при заходе на сервер
 @bot.event
-async def on_member_join( member ):
+async def on_member_join( member,autoroles ):
 	await ctx.send ( embed = discord.Embed(description = f'Привет, ``{member.name}``, добро пожаловать на сервер! Информация - !info', color = 0x49FF33))
 	role = discord.utils.get( member.guild.roles, id = autoroles )
 	await member.add_roles( role )
