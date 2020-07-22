@@ -27,15 +27,14 @@ sql = db.cursor()
 async def start(ctx,name="muted"):
 		guild = ctx.guild
 		for role in guild.roles:
-			if name.lower() in role.name.lower() exists:
-				await ctx.send(embed = discord.Embed(description = 'Бот уже настроен!', color = 0x49FF33))
-				return role
-			else:
+			if name.lower() not in role.name.lower():
 				perms = discord.Permissions(send_messages=False)
 				await guild.create_role(name="muted", permissions=perms)
 				await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
 Удачного пользования :)''', color = 0x49FF33))
-				return None
+			else:			
+				await ctx.send(embed = discord.Embed(description = 'Бот уже настроен!', color = 0x49FF33))
+				return role
 
 @bot.event
 async def on_ready():
