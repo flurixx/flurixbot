@@ -248,7 +248,7 @@ async def on_message(message):
 @bot.event
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
-	await ctx.send(embed = discord.Embed(description = f'{ctx.author.name}, команда не найдена!', color = 0xFF0000 ))
+		await ctx.send(embed = discord.Embed(description = f'{ctx.author.name}, команда не найдена!', color = 0xFF0000 ))
 
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
