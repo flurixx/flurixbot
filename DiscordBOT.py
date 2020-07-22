@@ -199,27 +199,6 @@ async def unban_error(ctx,error):
 	if isinstance(error, commands.MissingPermissions):
 		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
 		
-#Роль для авто-выдачи
-@bot.command()
-@has_permissions(manage_roles=True)
-async def autorole(ctx,autoroles:int):
-	await ctx.send ( embed = discord.Embed(description = f'Роль успешно добавлена в авто-выдачу!', color = 0x49FF33))
-	
-	
-@autorole.error
-async def autorole_error(ctx,error):
-	author = ctx.message.author
-	if isinstance (error, commands.MissingRequiredArgument):
-		await ctx.send(embed = discord.Embed(description = f'{author.mention}, укажите id роли!',color=0xFF0000))
-	if isinstance(error, commands.MissingPermissions):
-		await ctx.send(embed = discord.Embed(description = f'{author.mention}, вы не обладаете такими правами!',color=0xFF0000))
-
-
-#Авто-выдача роли при заходе на сервер
-@bot.event
-async def on_member_join(member):
-	role = discord.utils.get( member.guild.roles, id = autoroles )
-	await member.add_roles( role )
 	
 @bot.event
 async def on_member_join(ctx,member:discord.Member):
