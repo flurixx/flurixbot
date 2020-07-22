@@ -21,13 +21,14 @@ bot.remove_command('help')
 @bot.command()
 @has_permissions(manage_roles=True)
 async def start(ctx,name="muted"):
-		for role in ctx.guild.roles:
+		guild = ctx.guild
+		for role in guild.roles:
 			if name.lower() in role.name.lower():
 				await ctx.send(embed = discord.Embed(description = 'Бот уже настроен!', color = 0x49FF33))
 				return role
 			else:
 				perms = discord.Permissions(send_messages=False)
-				await ctx.guild.create_role(name="muted", permissions=perms)
+				await guild.create_role(name="muted", permissions=perms)
 				await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
 Удачного пользования :)''', color = 0x49FF33))
 				return role
