@@ -24,19 +24,16 @@ sql = db.cursor()
 
 @bot.command()
 @has_permissions(manage_roles=True)
-async def start(ctx,name="muted"):
-		guild = ctx.guild
-		for role in guild.roles:
-			if name.lower() not in role.name.lower():
-				perms = discord.Permissions(send_messages=False)
-				await guild.create_role(name="muted", permissions=perms)
-				await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
+async def start(ctx):
+		if get(ctx.guild.roles, name="muter"):
+			await ctx.send(embed = discord.Embed(description = 'Бот уже настроен!', color = 0x49FF33))
+		else:
+			perms = discord.Permissions(send_messages=False)
+			await ctx.guild.create_role(name="muted", permissions=perms)
+			await ctx.send(embed = discord.Embed(description = '''Первоначальная настройка бота завершена!
 Удачного пользования :)''', color = 0x49FF33))
-				return role
-			else:			
-				await ctx.send(embed = discord.Embed(description = 'Бот уже настроен!', color = 0x49FF33))
-				return role
-
+				
+				
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=" !info"))
